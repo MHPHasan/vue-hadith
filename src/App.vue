@@ -1,16 +1,28 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
+  <HadithWorld :items="items" msg="হাদিস"/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import HadithWorld from './components/HadithWorld'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    HadithWorld
+  },
+  data() {
+    return {
+      items: []
+    }
+  },
+  mounted() {
+    fetch('https://bn-hadith-api.herokuapp.com/hadiths')
+    .then(response => response.json())
+    .then(data => {
+      this.items = data;
+    });
+  },
 }
 </script>
 
@@ -21,6 +33,6 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 30px 0;
 }
 </style>
